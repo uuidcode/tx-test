@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.github.uuidcode.tx.test.dao.user.UserDao">
+    <select id="select" resultType="com.github.uuidcode.tx.test.domain.User">
+        select * from user
+    </select>
+
+    <insert id="insert" parameterType="com.github.uuidcode.tx.test.domain.User">
+        insert into user (
+            name,
+            reg_datetime
+        )
+        values
+        (
+            #{name},
+            now()
+        )
+        <selectKey resultType="java.lang.Long" keyProperty="userId" order="AFTER">
+            select last_insert_id()
+        </selectKey>
+    </insert>
+</mapper>
